@@ -1,0 +1,91 @@
+<h1>Events</h1>
+
+<div class="row pt-3">
+	<div class="col-8 col-sm-6 col-md-5 col-lg-4 mx-auto">
+		<button type="button" class="btn btn-primary btn-lg col-12" (click)="openModal(modalContent)">New Event</button>
+	</div>
+</div>
+
+<div class="row pt-3">
+	<div class="col-12 col-md-10 col-xl-8 mx-auto">
+		<table id="events-table" class="table table-sm table-striped table-hover data-table w-100" style="font-size: 14px;">
+			<thead>
+				<tr>
+					<th>Event Name</th>
+					<th class="d-none d-md-table-cell">Location</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let event of events" class="table-row clickable-row" (click)="linkToEvent(event.id)">
+					<td [attr.data-search]="event.brand.id">{{ event.name }}</td>
+					<td class="d-none d-md-table-cell">{{ event.city }}, {{ event.state }}</td>
+					<td [attr.data-sort]="event.date | date: 'YYYYMMdd'" [attr.data-search]="event.date | date: 'YYYYMMdd'">{{ (event.date == null) ? '' : (event.date | date: 'mediumDate') }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!-- Create Event Modal -->
+<ng-template #modalContent>
+	<form [formGroup]="createEventForm" (ngSubmit)="submitEventForm()">
+		<div class="modal-header">
+			<h5 class="modal-title" id="createEventModalLabel">Create New Event</h5>
+			<button class="btn-close" type="button" (click)="modalRef?.hide()" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<div class="row pt-2 gx-2 gy-3">
+				<div class="col-12">
+					<div class="row align-items-center">
+						<div class="col-4" *ngFor="let brand of brands">
+							<div class="brand-logo p-1 rounded h-100">
+								<div class="text-center" *ngIf="brand.logoUrl == null">{{ brand.name }}</div>
+								<img class="img-fluid" *ngIf="brand.logoUrl != null" src="{{ brand.logoUrl }}" />
+								<input class="d-none" type="radio" value="1" formControlName="brandId">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12">
+					<label class="form-label" for="name">Event Name</label>
+					<input class="form-control" type="text" formControlName="name" />
+				</div>
+				<div class="col-12">
+					<label class="form-label" for="address">Address</label>
+					<input class="form-control" type="text" formControlName="address" />
+				</div>
+				<div class="col-6">
+					<label class="form-label" for="city">City</label>
+					<input class="form-control" type="text" formControlName="city" />
+				</div>
+				<div class="col-3">
+					<label class="form-label" for="state">State</label>
+					<select class="form-select" formControlName="state">
+						<option value="">Select...</option>
+						<option *ngFor="let state of stateList" [ngValue]="state">
+						  {{ state }}
+						</option>
+					</select>
+				</div>
+				<div class="col-3">
+					<label class="form-label" for="country">Country</label>
+					<select class="form-select" formControlName="country">
+						<option value="">Select...</option>
+						<option *ngFor="let country of countryList" [ngValue]="country">
+						  {{ country }}
+						</option>
+					</select>
+				</div>
+				<div class="col-6">
+					<label class="form-label" for="date">Date</label>
+					<input type="date" placeholder="mm/dd/yyyy" class="form-control" name="date" />
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" (click)="modalRef?.hide()">Close</button>
+			<button type="submit" class="btn btn-primary">Create</button>
+		</div>
+	</form>
+</ng-template>
