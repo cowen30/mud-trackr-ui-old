@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EventService } from '../services/events/event.service';
@@ -6,6 +6,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Event } from '../models/event.model';
 import { Brand } from '../models/brand.model';
 import { BrandService } from '../services/brands/brand.service';
+import { TokenStorageService } from '../services/token-storage/token-storage.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
 	selector: 'app-events',
@@ -16,6 +18,8 @@ export class EventsComponent implements OnInit {
 
 	stateList: string[] = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
 	countryList: string[] = ['USA', 'Australia', 'Canada', 'Germany', 'UK'];
+
+	isLoggedIn: boolean = false;
 
 	events!: Event[];
 	brands!: Brand[];
@@ -36,10 +40,16 @@ export class EventsComponent implements OnInit {
 		private brandService: BrandService,
 		private router: Router,
 		private formBuilder: FormBuilder,
-		private modalService: BsModalService
+		private modalService: BsModalService,
+		private tokenStorageService: TokenStorageService,
+		private authService: AuthService
 	) { }
 
 	ngOnInit(): void {
+		this.authService.isLoggedIn.subscribe((loggedIn) => {
+			this.isLoggedIn = loggedIn;
+		});
+		this.isLoggedIn = !!this.tokenStorageService.getToken();
 		this.getEventsList();
 		this.getBrandsList();
 	}

@@ -1,6 +1,6 @@
 <h1>Events</h1>
 
-<div class="row pt-3">
+<div class="row pt-3" *ngIf="isLoggedIn">
 	<div class="col-8 col-sm-6 col-md-5 col-lg-4 mx-auto">
 		<button type="button" class="btn btn-primary btn-lg col-12" (click)="openModal(modalContent)">New Event</button>
 	</div>
