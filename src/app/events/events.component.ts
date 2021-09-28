@@ -55,14 +55,13 @@ export class EventsComponent implements OnInit {
 	}
 
 	getEventsList(): void {
-		this.eventService.getEvents().subscribe((events) => {
-			console.log(events);
+		this.eventService.getEvents().subscribe((events: Event[]) => {
 			this.events = events;
 		});
 	}
 
 	getBrandsList(): void {
-		this.brandService.getBrands().subscribe((brands) => {
+		this.brandService.getBrands().subscribe((brands: Brand[]) => {
 			this.brands = brands;
 		});
 	}
@@ -73,6 +72,13 @@ export class EventsComponent implements OnInit {
 
 	openModal(template: TemplateRef<any>) {
 		this.modalRef = this.modalService.show(template);
+	}
+
+	submitEventForm(): void {
+		this.eventService.createEvent(this.createEventForm.value).subscribe((createdEvent: Event) => {
+			this.modalRef?.hide();
+			this.linkToEvent(createdEvent.id);
+		});
 	}
 
 }

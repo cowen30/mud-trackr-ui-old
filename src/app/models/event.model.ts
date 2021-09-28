@@ -12,6 +12,8 @@ export interface Event {
 	latitude: string,
 	longitude: string,
 	archived: boolean,
+	// createdBy: User,
+	// updatedBy: User,
 	createdAt: Date,
 	updatedAt: Date
 }
