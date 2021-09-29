@@ -17,6 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
     EventsComponent,
     EventComponent,
     EventDetailsComponent,
-    LoginComponent
+    LoginComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +42,7 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
     NgxBootstrapIconsModule.pick(allIcons),
     BrowserAnimationsModule,
     ModalModule.forRoot(),
+    NgxSpinnerModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../services/auth/auth.service';
-import { TokenStorageService } from '../services/token-storage/token-storage.service';
 
 @Component({
 	selector: 'app-login',
@@ -18,14 +18,20 @@ export class LoginComponent implements OnInit {
 
 	constructor(
 		private formBuilder: FormBuilder,
-		private authService: AuthService
+		private authService: AuthService,
+		private router: Router,
+		private spinner: NgxSpinnerService
 	) { }
 
 	ngOnInit(): void {
 	}
 
 	login(): void {
-		this.authService.login(this.loginForm.value);
+		this.spinner.show();
+		this.authService.login(this.loginForm.value).subscribe(() => {
+			this.spinner.hide();
+			this.router.navigate(['']);
+		});
 	}
 
 }

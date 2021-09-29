@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { TokenStorageService } from '../token-storage/token-storage.service';
 
@@ -21,19 +21,17 @@ export class AuthService {
 
 	constructor(
 		private http: HttpClient,
-		private tokenStorageService: TokenStorageService,
-		private router: Router
+		private tokenStorageService: TokenStorageService
 	) {
 		this._loggedInSource.next(!!this.tokenStorageService.getToken());
 	}
 
-	login(loginUser: any): void {
-		this.http.post(`${this.baseUrl}/login`, { 'user': loginUser }, httpOptions).subscribe((result: any) => {
+	login(loginUser: any): Observable<any> {
+		return this.http.post(`${this.baseUrl}/login`, { 'user': loginUser }, httpOptions).pipe(map((result: any) => {
 			this.tokenStorageService.saveToken(result['token']);
 			this.tokenStorageService.saveUser(result['user']);
 			this._loggedInSource.next(true);
-			this.router.navigate(['']);
-		});
+		}));
 	}
 
 	logout() {

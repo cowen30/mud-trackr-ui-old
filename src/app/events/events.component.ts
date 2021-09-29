@@ -8,6 +8,9 @@ import { Brand } from '../models/brand.model';
 import { BrandService } from '../services/brands/brand.service';
 import { TokenStorageService } from '../services/token-storage/token-storage.service';
 import { AuthService } from '../services/auth/auth.service';
+import { forkJoin, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
 	selector: 'app-events',
@@ -42,7 +45,8 @@ export class EventsComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private modalService: BsModalService,
 		private tokenStorageService: TokenStorageService,
-		private authService: AuthService
+		private authService: AuthService,
+		private spinner: NgxSpinnerService
 	) { }
 
 	ngOnInit(): void {
@@ -50,20 +54,24 @@ export class EventsComponent implements OnInit {
 			this.isLoggedIn = loggedIn;
 		});
 		this.isLoggedIn = !!this.tokenStorageService.getToken();
-		this.getEventsList();
-		this.getBrandsList();
+		this.spinner.show();
+		let eventsList = this.getEventsList();
+		let brandsList = this.getBrandsList();
+		forkJoin([eventsList, brandsList]).subscribe(_ => {
+			this.spinner.hide();
+		});
 	}
 
-	getEventsList(): void {
-		this.eventService.getEvents().subscribe((events: Event[]) => {
+	getEventsList(): Observable<void> {
+		return this.eventService.getEvents().pipe(map((events: Event[]) => {
 			this.events = events;
-		});
+		}));
 	}
 
-	getBrandsList(): void {
-		this.brandService.getBrands().subscribe((brands: Brand[]) => {
+	getBrandsList(): Observable<void> {
+		return this.brandService.getBrands().pipe(map((brands: Brand[]) => {
 			this.brands = brands;
-		});
+		}));
 	}
 
 	linkToEvent(eventId: number): void {

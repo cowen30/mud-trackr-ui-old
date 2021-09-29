@@ -1,5 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { LoginComponent } from './login/login.component';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'app-root',
@@ -8,8 +7,4 @@ import { LoginComponent } from './login/login.component';
 })
 export class AppComponent {
 	title = 'mud-trackr-ui';
-
-	@ViewChild(LoginComponent) loginComponent!: LoginComponent;
-
-	isLoggedIn: boolean = false;
 }
