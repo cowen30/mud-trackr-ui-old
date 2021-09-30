@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../services/auth/auth.service';
 import { TokenStorageService } from '../services/token-storage/token-storage.service';
 
@@ -12,13 +13,15 @@ export class NavbarComponent implements OnInit {
 	isLoggedIn: boolean = false;
 	currentUser: any;
 
+	sub!: Subscription;
+
 	constructor(
 		private authService: AuthService,
 		private tokenStorageService: TokenStorageService
 	) { }
 
 	ngOnInit(): void {
-		this.authService.isLoggedIn.subscribe((loggedIn) => {
+		this.sub = this.authService.isLoggedIn.subscribe((loggedIn) => {
 			this.isLoggedIn = loggedIn;
 			this.currentUser = this.tokenStorageService.getUser();
 		});
@@ -26,6 +29,10 @@ export class NavbarComponent implements OnInit {
 
 	logout(): void {
 		this.authService.logout();
+	}
+
+	ngOnDestroy(): void {
+		this.sub.unsubscribe();
 	}
 
 }

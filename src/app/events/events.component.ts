@@ -8,7 +8,7 @@ import { Brand } from '../models/brand.model';
 import { BrandService } from '../services/brands/brand.service';
 import { TokenStorageService } from '../services/token-storage/token-storage.service';
 import { AuthService } from '../services/auth/auth.service';
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -23,6 +23,7 @@ export class EventsComponent implements OnInit {
 	countryList: string[] = ['USA', 'Australia', 'Canada', 'Germany', 'UK'];
 
 	isLoggedIn: boolean = false;
+	sub!: Subscription;
 
 	events!: Event[];
 	brands!: Brand[];
@@ -50,7 +51,7 @@ export class EventsComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
-		this.authService.isLoggedIn.subscribe((loggedIn) => {
+		this.sub = this.authService.isLoggedIn.subscribe((loggedIn) => {
 			this.isLoggedIn = loggedIn;
 		});
 		this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -60,6 +61,10 @@ export class EventsComponent implements OnInit {
 		forkJoin([eventsList, brandsList]).subscribe(_ => {
 			this.spinner.hide();
 		});
+	}
+
+	ngOnDestroy(): void {
+		this.sub.unsubscribe();
 	}
 
 	getEventsList(): Observable<void> {

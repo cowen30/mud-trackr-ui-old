@@ -15,6 +15,7 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'events', component: EventsComponent },
       { path: 'events/:id', component: EventComponent },
+      { path: 'profile', loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule) },
       { path: '**', component: HomeComponent }
     ]
   }
