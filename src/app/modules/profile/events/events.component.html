@@ -1,1 +1,38 @@
-<p>events works!</p>
+<div class="row pt-4" *ngIf="user.active">
+	<div class="col-8 col-sm-6 col-md-5 col-lg-4 mx-auto">
+		<button type="button" class="btn btn-primary btn-lg col-12" (click)="openParticipantModal(participantModalContent)">Add Event</button>
+	</div>
+</div>
+<div class="row pt-3">
+	<div class="col-12 col-xl-10 mx-auto pt-2">
+		<table id="participant-table" class="table table-sm table-striped table-hover data-table w-100" style="font-size: 14px;">
+			<thead>
+				<tr>
+					<th>Event Name</th>
+					<th>Type</th>
+					<th>Day</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="table-row" *ngFor="let participant of participants">
+					<td>{{ participant.eventDetail.event.name }}</td>
+					<td>
+						<span class="d-none d-md-inline-block">{{ participant.eventDetail.eventType.name }}</span>
+						<span class="d-md-none"><!--{{ participant.event_detail.event_type.short_name }}--></span>
+					</td>
+					<td>
+						<span class="d-none d-md-inline-block">{{ participant.participationDay }}</span>
+						<!--<span class="d-md-none">{{ (participant.participationDay || "").substring(0, 3) }}</span>-->
+						<!--<% if participant.additional_laps %>
+						(+<%= participant.additional_laps %>)
+						<% end %>-->
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!-- Participant Modal -->
+<ng-template #participantModalContent>
+</ng-template>
