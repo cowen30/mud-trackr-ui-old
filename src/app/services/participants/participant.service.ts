@@ -17,4 +17,17 @@ export class ParticipantService {
 		return this.http.get<Participant[]>(`${this.baseUrl}/participants/users/${userId.toString()}`);
 	}
 
+	addParticipant(participant: Participant): Observable<Participant> {
+		return this.http.post<Participant>(`${this.baseUrl}/participants`, { participant: participant });
+	}
+
+	editParticipant(participant: Participant): Observable<Participant> {
+		const { ['id']: participantId, ...participantData } = participant;
+		return this.http.patch<Participant>(`${this.baseUrl}/participants/${participantId}`, { participant: participantData });
+	}
+
+	deleteParticipant(participantId: number): Observable<any> {
+		return this.http.delete<any>(`${this.baseUrl}/participants/${participantId}`);
+	}
+
 }

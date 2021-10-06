@@ -3,7 +3,7 @@ import { EventDetail } from "./event-detail.model";
 import { User } from "./user.model";
 
 export interface Participant {
-	id: number,
+	id?: number,
 	user: User
 	eventDetail: EventDetail,
 	participationDay: ParticipationDay

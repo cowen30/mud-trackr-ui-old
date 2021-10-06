@@ -1,6 +1,6 @@
 <div class="row pt-4" *ngIf="user.active">
 	<div class="col-8 col-sm-6 col-md-5 col-lg-4 mx-auto">
-		<button type="button" class="btn btn-primary btn-lg col-12" (click)="openParticipantModal(participantModalContent)">Add Event</button>
+		<button type="button" class="btn btn-primary btn-lg col-12" (click)="newParticipant(participantModalContent)">Add Event</button>
 	</div>
 </div>
 <div class="row pt-3">
@@ -14,7 +14,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="table-row" *ngFor="let participant of participants">
+				<tr class="table-row clickable-row" *ngFor="let participant of participants" (click)="editParticipant(participant, participantModalContent)">
 					<td>{{ participant.eventDetail.event.name }}</td>
 					<td>
 						<span class="d-none d-md-inline-block">{{ participant.eventDetail.eventType.name }}</span>
@@ -35,4 +35,56 @@
 
 <!-- Participant Modal -->
 <ng-template #participantModalContent>
+	<form [formGroup]="participantForm" (ngSubmit)="submitParticipantForm()">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"><span id="participant-modal-label">Add</span> Event</h5>
+				<button class="btn-close" type="button" (click)="modalRef?.hide()" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row gy-3">
+					<div class="col-12" formGroupName="eventDetailAttributes">
+						<div class="row gy-3">
+							<div class="col-12">
+								<label class="form-label" for="eventId">Event</label>
+								<select id="eventId" class="form-select" formControlName="eventId">
+									<option value="">Select...</option>
+									<option *ngFor="let event of eventsList" [ngValue]="event.id">{{ event.name }}</option>
+								</select>
+							</div>
+							<div class="col-12">
+								<label class="form-label" for="eventTypeId">Event Type</label>
+								<select id="eventTypeId" class="form-select" formControlName="eventTypeId">
+									<option value="">Select...</option>
+									<option *ngFor="let eventType of eventTypesList" [ngValue]="eventType.id">{{ eventType.name }}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-12">
+						<p>Participation Day</p>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" formControlName="participationDay" id="participationDaySaturday" value="Saturday">
+							<label class="form-check-label" for="participationDaySaturday">Saturday</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" formControlName="participationDay" id="participationDaySunday" value="Sunday">
+							<label class="form-check-label" for="participationDaySunday">Sunday</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer d-block">
+				<div class="row justify-content-between gx-0">
+					<div class="col-auto">
+						<a id="delete-participant" *ngIf="participantForm.controls['id'].value != null" class="btn btn-danger text-white" (click)="deleteParticipant()">Delete</a>
+					</div>
+					<div class="col-auto d-flex gap-2">
+						<button type="button" class="btn btn-secondary" (click)="modalRef?.hide()">Close</button>
+						<button type="submit" class="btn btn-primary">Save</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
 </ng-template>

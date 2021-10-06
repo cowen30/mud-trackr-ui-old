@@ -5,6 +5,7 @@ import { ProfileComponent } from './profile.component';
 import { DetailsComponent } from './details/details.component';
 import { EventsComponent } from './events/events.component';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
 	declarations: [
@@ -14,7 +15,9 @@ import { CommonModule } from '@angular/common';
 	],
 	imports: [
 		CommonModule,
-		ProfileRoutingModule
+		ProfileRoutingModule,
+		FormsModule,
+		ReactiveFormsModule,
 	],
 	providers: [],
 	bootstrap: [ProfileComponent]
