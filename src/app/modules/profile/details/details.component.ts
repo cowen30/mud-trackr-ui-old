@@ -8,7 +8,7 @@ import { User } from 'src/app/models/user.model';
 })
 export class DetailsComponent implements OnInit {
 
-	@Input('user') user!: User;
+	@Input('user') user?: User;
 
 	constructor() { }
 
