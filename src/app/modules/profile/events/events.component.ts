@@ -18,6 +18,8 @@ import { ParticipantService } from 'src/app/services/participants/participant.se
 export class EventsComponent implements OnInit {
 
 	private _user = new BehaviorSubject<User>({ id: 0 });
+	private _loadFinished = new BehaviorSubject<boolean>(false);
+	loadFinished = this._loadFinished.asObservable();
 
 	@Input('user') set user(value: User) {
 		this._user.next(value);
@@ -57,6 +59,8 @@ export class EventsComponent implements OnInit {
 				this.participantForm.controls['userId'].setValue(user.id);
 				this.participantService.getParticipantsByUserId(user.id).subscribe((participants: Participant[]) => {
 					this.participants = participants;
+					this._loadFinished.next(true);
+					this._loadFinished.complete();
 				});
 			}
 		});
