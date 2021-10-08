@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/users/user.service';
 import { TokenStorageService } from '../../services/token-storage/token-storage.service';
+import { InfoSummaryBarComponent } from './info-summary-bar/info-summary-bar.component';
 
 @Component({
 	selector: 'app-profile',
@@ -10,6 +11,8 @@ import { TokenStorageService } from '../../services/token-storage/token-storage.
 })
 export class ProfileComponent implements OnInit {
 
+	@ViewChild('infoSummaryBarComponent')
+	infoSummaryBarComponent!: InfoSummaryBarComponent;
 	activeTab: string | null = 'details';
 	user!: User;
 

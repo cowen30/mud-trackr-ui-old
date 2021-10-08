@@ -1,0 +1,13 @@
+.btn {
+	&:focus {
+		box-shadow: none;
+	}
+
+	i > svg {
+		transition: transform .2s ease-in-out;
+	}
+
+	&:not(.collapsed) i > svg {
+		transform: rotate(-180deg);
+	}
+}

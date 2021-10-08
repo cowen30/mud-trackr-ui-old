@@ -30,4 +30,8 @@ export class ParticipantService {
 		return this.http.delete<any>(`${this.baseUrl}/participants/${participantId}`);
 	}
 
+	getTmLegionnaireCountForUser(userId: number): Observable<number> {
+		return this.http.get<number>(`${this.baseUrl}/participants/users/${userId.toString()}/legionnaire`);
+	}
+
 }

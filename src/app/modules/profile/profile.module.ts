@@ -6,12 +6,14 @@ import { DetailsComponent } from './details/details.component';
 import { EventsComponent } from './events/events.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InfoSummaryBarComponent } from './info-summary-bar/info-summary-bar.component';
 
 @NgModule({
 	declarations: [
 		ProfileComponent,
 		DetailsComponent,
-		EventsComponent
+		EventsComponent,
+  InfoSummaryBarComponent
 	],
 	imports: [
 		CommonModule,
