@@ -48,14 +48,14 @@
 							<div class="col-12">
 								<label class="form-label" for="eventId">Event</label>
 								<select id="eventId" class="form-select" formControlName="eventId">
-									<option value="">Select...</option>
+									<option [ngValue]="null" selected>Select...</option>
 									<option *ngFor="let event of eventsList" [ngValue]="event.id">{{ event.name }}</option>
 								</select>
 							</div>
 							<div class="col-12">
 								<label class="form-label" for="eventTypeId">Event Type</label>
 								<select id="eventTypeId" class="form-select" formControlName="eventTypeId">
-									<option value="">Select...</option>
+									<option [ngValue]="null" selected>Select...</option>
 									<option *ngFor="let eventType of eventTypesList" [ngValue]="eventType.id">{{ eventType.name }}</option>
 								</select>
 							</div>
