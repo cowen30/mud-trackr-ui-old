@@ -17,8 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
-import { NgxSpinnerModule } from 'ngx-spinner';
 import { MainComponent } from './main/main.component';
+import { SharedModule } from './modules/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,7 @@ import { MainComponent } from './main/main.component';
     NgxBootstrapIconsModule.pick(allIcons),
     BrowserAnimationsModule,
     ModalModule.forRoot(),
-    NgxSpinnerModule
+    SharedModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

@@ -8,14 +8,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InfoSummaryBarComponent } from './info-summary-bar/info-summary-bar.component';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
-import { NgxSpinnerModule } from 'ngx-spinner';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
 	declarations: [
 		ProfileComponent,
 		DetailsComponent,
 		EventsComponent,
-  InfoSummaryBarComponent
+		InfoSummaryBarComponent
 	],
 	imports: [
 		CommonModule,
@@ -23,7 +23,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 		FormsModule,
 		ReactiveFormsModule,
 		NgxBootstrapIconsModule.pick(allIcons),
-		NgxSpinnerModule
+		SharedModule
 	],
 	providers: [],
 	bootstrap: [ProfileComponent]
