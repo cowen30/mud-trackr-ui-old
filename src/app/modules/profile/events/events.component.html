@@ -38,7 +38,9 @@
 	<form [formGroup]="participantForm" (ngSubmit)="submitParticipantForm()">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title"><span id="participant-modal-label">Add</span> Event</h5>
+				<h5 class="modal-title"><div *ngIf="participantForm.controls['id'].value == null;then addEvent else editEvent"></div> Event</h5>
+				<ng-template #addEvent>Add</ng-template>
+				<ng-template #editEvent>Edit</ng-template>
 				<button class="btn-close" type="button" (click)="modalRef?.hide()" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">

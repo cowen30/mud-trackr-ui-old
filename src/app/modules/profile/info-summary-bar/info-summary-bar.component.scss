@@ -3,11 +3,11 @@
 		box-shadow: none;
 	}
 
-	i > svg {
+	i {
 		transition: transform .2s ease-in-out;
 	}
 
-	&:not(.collapsed) i > svg {
+	&:not(.collapsed) i {
 		transform: rotate(-180deg);
 	}
 }
