@@ -36,7 +36,8 @@ export class EventsComponent implements OnInit {
 			eventId: null,
 			eventTypeId: null
 		}),
-		participationDay: ''
+		participationDay: '',
+		additionalLaps: null
 	});
 
 	eventsList!: Event[];
@@ -107,7 +108,8 @@ export class EventsComponent implements OnInit {
 				eventId: participant.eventDetail.event.id,
 				eventTypeId: participant.eventDetail.eventType.id
 			},
-			participationDay: participant.participationDay
+			participationDay: participant.participationDay,
+			additionalLaps: participant.additionalLaps
 		});
 		this.openParticipantModal(template);
 	}
@@ -117,6 +119,16 @@ export class EventsComponent implements OnInit {
 			this.participants.splice(this.participants.indexOf(this.participantForm.value), 1);
 			this.modalRef?.hide();
 		})
+	}
+
+	subtractLap(): void {
+		if (this.participantForm.controls['additionalLaps'].value != null && this.participantForm.controls['additionalLaps'].value >= 1) {
+			this.participantForm.controls['additionalLaps'].setValue(this.participantForm.controls['additionalLaps'].value - 1);
+		}
+	}
+
+	addLap(): void {
+		this.participantForm.controls['additionalLaps'].setValue(this.participantForm.controls['additionalLaps'].value + 1);
 	}
 
 }

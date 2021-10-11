@@ -18,14 +18,12 @@
 					<td>{{ participant.eventDetail.event.name }}</td>
 					<td>
 						<span class="d-none d-md-inline-block">{{ participant.eventDetail.eventType.name }}</span>
-						<span class="d-md-none"><!--{{ participant.event_detail.event_type.short_name }}--></span>
+						<span class="d-md-none">{{ participant.eventDetail.eventType.shortName }}</span>
 					</td>
 					<td>
 						<span class="d-none d-md-inline-block">{{ participant.participationDay }}</span>
-						<!--<span class="d-md-none">{{ (participant.participationDay || "").substring(0, 3) }}</span>-->
-						<!--<% if participant.additional_laps %>
-						(+<%= participant.additional_laps %>)
-						<% end %>-->
+						<span class="d-md-none">{{ (participant.participationDay || "").toString().substring(0, 3) }}</span>
+						<span class="ps-1" *ngIf="participant.additionalLaps > 0">(+{{ participant.additionalLaps }})</span>
 					</td>
 				</tr>
 			</tbody>
@@ -73,6 +71,16 @@
 							<input class="form-check-input" type="radio" formControlName="participationDay" id="participationDaySunday" value="Sunday">
 							<label class="form-check-label" for="participationDaySunday">Sunday</label>
 						</div>
+					</div>
+					<label class="col-4 col-form-label" for="additionalLaps">Additional Laps</label>
+					<div class="col-1 position-relative counter-button" (click)="subtractLap()">
+						<i i-bs name="dash-circle" class="fw-bold position-absolute top-50 start-50 translate-middle" width="1.5rem" height="1.5rem" aria-hidden="true"></i>
+					</div>
+					<div class="col-3">
+						<input id="additionalLaps" class="form-control" type="number" formControlName="additionalLaps" min="0">
+					</div>
+					<div class="col-1 position-relative counter-button" (click)="addLap()">
+						<i i-bs name="plus-circle" class="fw-bold position-absolute top-50 start-50 translate-middle" width="1.5rem" height="1.5rem" aria-hidden="true"></i>
 					</div>
 				</div>
 			</div>

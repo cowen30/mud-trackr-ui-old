@@ -4,8 +4,9 @@ import { User } from "./user.model";
 
 export interface Participant {
 	id?: number,
-	user: User
+	user: User,
 	eventDetail: EventDetail,
-	participationDay: ParticipationDay
-	active: boolean
+	participationDay: ParticipationDay,
+	active: boolean,
+	additionalLaps: number
 }
