@@ -1,22 +1,22 @@
 <dl class="row">
 	<dt class="col-4 text-end">Event Name</dt>
-	<dd class="col-8">{{ event.name }}</dd>
+	<dd class="col-8">{{ event?.name }}</dd>
 
 	<dt class="col-4 text-end">Date</dt>
-	<dd class="col-8">{{ event.date | date: 'mediumDate' }}</dd>
+	<dd class="col-8">{{ event?.date | date: 'mediumDate' }}</dd>
 
 	<dt class="col-4 text-end">Address</dt>
-	<dd class="col-8">{{ event.address }}</dd>
+	<dd class="col-8">{{ event?.address }}</dd>
 
 	<dt class="col-4 text-end">City</dt>
-	<dd class="col-8">{{ event.city }}</dd>
+	<dd class="col-8">{{ event?.city }}</dd>
 
 	<dt class="col-4 text-end">State</dt>
-	<dd class="col-8">{{ event.state }}</dd>
+	<dd class="col-8">{{ event?.state }}</dd>
 
 	<dt class="col-4 text-end">Country</dt>
-	<dd class="col-8">{{ event.country }}</dd>
+	<dd class="col-8">{{ event?.country }}</dd>
 
 	<dt class="col-4 text-end">Brand</dt>
-	<dd class="col-8">{{ event.brand.name }}</dd>
+	<dd class="col-8">{{ event?.brand?.name }}</dd>
 </dl>

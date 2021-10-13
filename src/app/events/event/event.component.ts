@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { forkJoin, Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Event } from 'src/app/models/event.model';
 import { EventService } from 'src/app/services/events/event.service';
+import { ParticipantsComponent } from './participants/participants.component';
 
 @Component({
 	selector: 'app-event',
@@ -11,23 +14,51 @@ import { EventService } from 'src/app/services/events/event.service';
 })
 export class EventComponent implements OnInit {
 
-	private sub!: Subscription;
+	availableTabs: string[] = ['details', 'participants'];
+
+	private routeParamSub!: Subscription;
+	private queryParamSub!: Subscription;
+
+	@ViewChild('participantsComponent')
+	participantsComponent!: ParticipantsComponent;
+
+	eventResult!: Observable<void>;
 
 	event!: Event;
 	activeTab: string | null = 'details';
 	
-	constructor(private route: ActivatedRoute, private eventService: EventService) { }
+	constructor(
+		private route: ActivatedRoute,
+		private eventService: EventService,
+		private spinner: NgxSpinnerService
+	) { }
 
 	ngOnInit() {
-		this.sub = this.route.params.subscribe(params => {
-			this.eventService.getEventById(params['id']).subscribe((event) => {
+		this.spinner.show();
+		this.routeParamSub = this.route.params.subscribe(params => {
+			this.eventResult = this.eventService.getEventById(params['id']).pipe(map((event) => {
 				this.event = event;
-			});
+			}));
+		});
+		this.queryParamSub = this.route.queryParams.subscribe(params => {
+			const potentialActiveTab = params['activeTab'];
+			if (this.availableTabs.includes(potentialActiveTab)) {
+				this.activeTab = potentialActiveTab;
+			}
+		})
+		this.activeTab = this.route.snapshot.queryParamMap.get('activeTab');
+	}
+
+	ngAfterViewInit(): void {
+		let participantsLoadFinished = this.participantsComponent.loadFinished;
+		forkJoin([this.eventResult, participantsLoadFinished]).subscribe(_ => {
+			this.spinner.hide();
 		});
 	}
 
 	ngOnDestroy() {
-		this.sub.unsubscribe();
+		this.routeParamSub.unsubscribe();
+		this.queryParamSub.unsubscribe();
 	}
 
 }

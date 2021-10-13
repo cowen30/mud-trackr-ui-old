@@ -19,6 +19,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { MainComponent } from './main/main.component';
 import { SharedModule } from './modules/shared/shared.module';
+import { ParticipantsComponent } from './events/event/participants/participants.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { SharedModule } from './modules/shared/shared.module';
     EventComponent,
     EventDetailsComponent,
     LoginComponent,
-    MainComponent
+    MainComponent,
+    ParticipantsComponent
   ],
   imports: [
     BrowserModule,

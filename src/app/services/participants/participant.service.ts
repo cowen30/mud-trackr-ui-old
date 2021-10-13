@@ -17,6 +17,10 @@ export class ParticipantService {
 		return this.http.get<Participant[]>(`${this.baseUrl}/participants/users/${userId.toString()}`);
 	}
 
+	getParticipantsByEventId(eventId: number): Observable<Participant[]> {
+		return this.http.get<Participant[]>(`${this.baseUrl}/participants/events/${eventId.toString()}`);
+	}
+
 	addParticipant(participant: Participant): Observable<Participant> {
 		return this.http.post<Participant>(`${this.baseUrl}/participants`, { participant: participant });
 	}

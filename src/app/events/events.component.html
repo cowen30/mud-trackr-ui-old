@@ -18,7 +18,7 @@
 			</thead>
 			<tbody>
 				<tr *ngFor="let event of events" class="table-row clickable-row" (click)="linkToEvent(event.id)">
-					<td [attr.data-search]="event.brand.id">{{ event.name }}</td>
+					<td [attr.data-search]="event.brand?.id">{{ event.name }}</td>
 					<td class="d-none d-md-table-cell">{{ event.city }}, {{ event.state }}</td>
 					<td [attr.data-sort]="event.date | date: 'YYYYMMdd'" [attr.data-search]="event.date | date: 'YYYYMMdd'">{{ (event.date == null) ? '' : (event.date | date: 'mediumDate') }}</td>
 				</tr>

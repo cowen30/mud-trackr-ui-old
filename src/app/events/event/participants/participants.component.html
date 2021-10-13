@@ -1,0 +1,27 @@
+<div class="row pt-3">
+	<div class="col-12 col-xl-10 mx-auto pt-2">
+		<table id="participant-table" class="table table-sm table-striped table-hover data-table w-100" style="font-size: 14px;">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Day</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="table-row clickable-row" *ngFor="let participant of participants">
+					<td>{{ participant.user.firstName }} {{ participant.user.lastName }}</td>
+					<td>
+						<span class="d-none d-md-inline-block">{{ participant.eventDetail.eventType.name }}</span>
+						<span class="d-md-none">{{ participant.eventDetail.eventType.shortName }}</span>
+					</td>
+					<td>
+						<span class="d-none d-md-inline-block">{{ participant.participationDay }}</span>
+						<span class="d-md-none">{{ (participant.participationDay || "").toString().substring(0, 3) }}</span>
+						<span class="ps-1" *ngIf="participant.additionalLaps > 0">(+{{ participant.additionalLaps }})</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
