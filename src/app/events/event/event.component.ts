@@ -4,6 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Event } from 'src/app/models/event.model';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { EventService } from 'src/app/services/events/event.service';
 import { ParticipantsComponent } from './participants/participants.component';
 
@@ -15,6 +16,8 @@ import { ParticipantsComponent } from './participants/participants.component';
 export class EventComponent implements OnInit {
 
 	availableTabs: string[] = ['details', 'participants'];
+	isLoggedIn: boolean = false;
+	sub!: Subscription;
 
 	private routeParamSub!: Subscription;
 	private queryParamSub!: Subscription;
@@ -30,7 +33,8 @@ export class EventComponent implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private eventService: EventService,
-		private spinner: NgxSpinnerService
+		private spinner: NgxSpinnerService,
+		private authService: AuthService
 	) { }
 
 	ngOnInit() {
@@ -45,13 +49,18 @@ export class EventComponent implements OnInit {
 			if (this.availableTabs.includes(potentialActiveTab)) {
 				this.activeTab = potentialActiveTab;
 			}
-		})
-		this.activeTab = this.route.snapshot.queryParamMap.get('activeTab');
+		});
+		this.sub = this.authService.loggedIn.subscribe((loggedIn) => {
+			this.isLoggedIn = loggedIn;
+		});
 	}
 
 	ngAfterViewInit(): void {
-		let participantsLoadFinished = this.participantsComponent.loadFinished;
-		forkJoin([this.eventResult, participantsLoadFinished]).subscribe(_ => {
+		let loadingDependencies: Observable<any>[] = [this.eventResult];
+		if (this.authService.loggedIn.getValue()) {
+			loadingDependencies.push(this.participantsComponent.loadFinished);
+		}
+		forkJoin(loadingDependencies).subscribe(_ => {
 			this.spinner.hide();
 		});
 	}
@@ -59,6 +68,7 @@ export class EventComponent implements OnInit {
 	ngOnDestroy() {
 		this.routeParamSub.unsubscribe();
 		this.queryParamSub.unsubscribe();
+		this.sub.unsubscribe();
 	}
 
 }
