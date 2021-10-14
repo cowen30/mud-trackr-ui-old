@@ -14,8 +14,7 @@ const httpOptions = {
 })
 export class AuthService {
 
-	private _loggedInSource = new BehaviorSubject<boolean>(false);
-	isLoggedIn = this._loggedInSource.asObservable();
+	loggedIn = new BehaviorSubject<boolean>(false);
 
 	baseUrl = environment.serviceUrl;
 
@@ -23,20 +22,20 @@ export class AuthService {
 		private http: HttpClient,
 		private tokenStorageService: TokenStorageService
 	) {
-		this._loggedInSource.next(!!this.tokenStorageService.getToken());
+		this.loggedIn.next(!!this.tokenStorageService.getToken());
 	}
 
 	login(loginUser: any): Observable<any> {
 		return this.http.post(`${this.baseUrl}/login`, { 'user': loginUser }, httpOptions).pipe(map((result: any) => {
 			this.tokenStorageService.saveToken(result['token']);
 			this.tokenStorageService.saveUser(result['user']);
-			this._loggedInSource.next(true);
+			this.loggedIn.next(true);
 		}));
 	}
 
-	logout() {
-		this._loggedInSource.next(false);
+	logout(): void {
 		this.tokenStorageService.signOut();
+		this.loggedIn.next(false);
 	}
 
 }
