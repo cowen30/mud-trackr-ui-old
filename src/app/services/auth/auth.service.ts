@@ -15,6 +15,7 @@ const httpOptions = {
 export class AuthService {
 
 	loggedIn = new BehaviorSubject<boolean>(false);
+	redirectUrl: string | null = null;
 
 	baseUrl = environment.serviceUrl;
 
