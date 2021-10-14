@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../services/auth/auth.service';
 import { TokenStorageService } from '../services/token-storage/token-storage.service';
@@ -15,9 +17,13 @@ export class NavbarComponent implements OnInit {
 
 	sub!: Subscription;
 
+	modalRef?: BsModalRef;
+
 	constructor(
 		private authService: AuthService,
-		private tokenStorageService: TokenStorageService
+		private tokenStorageService: TokenStorageService,
+		private modalService: BsModalService,
+		private router: Router
 	) { }
 
 	ngOnInit(): void {
@@ -27,8 +33,14 @@ export class NavbarComponent implements OnInit {
 		});
 	}
 
+	logoutConfirmation(template: TemplateRef<any>): void {
+		this.modalRef = this.modalService.show(template);
+	}
+
 	logout(): void {
 		this.authService.logout();
+		this.modalRef?.hide();
+		this.router.navigate(['']);
 	}
 
 	ngOnDestroy(): void {
