@@ -3,6 +3,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from 'src/app/models/user.model';
+import { ParticipantService } from 'src/app/services/participants/participant.service';
 import { UserService } from 'src/app/services/users/user.service';
 import { TokenStorageService } from '../../services/token-storage/token-storage.service';
 import { EventsComponent } from './events/events.component';
@@ -22,14 +23,18 @@ export class ProfileComponent implements OnInit {
 	infoSummaryBarComponent!: InfoSummaryBarComponent;
 
 	userResult!: Observable<void>;
+	statsResult!: Observable<void>;
 
 	activeTab: string | null = 'details';
 	user!: User;
 
+	tmLegionnaireCount: number = 0;
+
 	constructor(
 		private tokenStorageService: TokenStorageService,
 		private userService: UserService,
-		private spinner: NgxSpinnerService
+		private spinner: NgxSpinnerService,
+		private participantService: ParticipantService
 	) { }
 
 	ngOnInit(): void {
@@ -38,13 +43,15 @@ export class ProfileComponent implements OnInit {
 		this.userResult = this.userService.getUserById(userId).pipe(map((user: User) => {
 			this.user = user;
 		}));
+		this.statsResult = this.participantService.getTmLegionnaireCountForUser(userId).pipe(map((count: number) => {
+			this.tmLegionnaireCount = count;
+		}));
 		
 	}
 
 	ngAfterViewInit(): void {
 		let eventsLoadFinished = this.eventsComponent.loadFinished;
-		let infoSummaryBarLoadFinished = this.infoSummaryBarComponent.loadFinished;
-		forkJoin([this.userResult, eventsLoadFinished, infoSummaryBarLoadFinished]).subscribe(_ => {
+		forkJoin([this.userResult, this.statsResult, eventsLoadFinished]).subscribe(_ => {
 			this.spinner.hide();
 		});
 	}

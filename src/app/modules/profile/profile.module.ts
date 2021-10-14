@@ -9,13 +9,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InfoSummaryBarComponent } from './info-summary-bar/info-summary-bar.component';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { SharedModule } from '../shared/shared.module';
+import { StaticHeaderComponent } from './static-header/static-header.component';
 
 @NgModule({
 	declarations: [
 		ProfileComponent,
 		DetailsComponent,
 		EventsComponent,
-		InfoSummaryBarComponent
+		InfoSummaryBarComponent,
+		StaticHeaderComponent
 	],
 	imports: [
 		CommonModule,

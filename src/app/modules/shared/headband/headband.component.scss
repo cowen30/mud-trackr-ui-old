@@ -1,0 +1,27 @@
+.headband-1x {
+	background-color: orange;
+}
+
+.headband-2x {
+	background-color: green;
+}
+
+.headband-3x {
+	background-color: blue;
+}
+
+.headband-4-6x {
+	background-color: yellow;
+}
+
+.headband-7-9x {
+	background-color: pink;
+}
+
+.headband-10x {
+	background-image: linear-gradient(180deg, orange 10%, black 10%, black 90%, orange 90%, orange 100%);
+}
+
+.headband-25x {
+	background-image: linear-gradient(180deg, black 10%, silver 10%, silver 90%, black 90%, black 100%);
+}

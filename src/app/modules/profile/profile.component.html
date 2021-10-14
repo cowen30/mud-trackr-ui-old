@@ -1,6 +1,7 @@
 <div class="row pt-3">
 	<div class="col-12">
-		<div class="row">
+		<app-profile-static-header [user]="user" [legionnaireCount]="tmLegionnaireCount"></app-profile-static-header>
+		<div class="row pt-3">
 			<div class="col-12">
 				<ul class="nav nav-tabs" id="user-tabs" role="tablist">
 					<li class="nav-item" role="presentation">
@@ -12,7 +13,7 @@
 				</ul>
 			</div>
 		</div>
-		<app-profile-info-summary-bar #infoSummaryBarComponent [user]="user"></app-profile-info-summary-bar>
+		<app-profile-info-summary-bar #infoSummaryBarComponent [tmLegionnaireCount]="tmLegionnaireCount"></app-profile-info-summary-bar>
 		<div class="row pt-3 justify-content-center">
 			<div class="col-12 col-lg-9">
 				<div class="tab-content" id="tab-content">
