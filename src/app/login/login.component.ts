@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 		this.spinner.show();
 		this.authService.login(this.loginForm.value).subscribe(() => {
 			this.spinner.hide();
-			this.router.navigate(['']);
+			this.router.navigate(['/profile']);
 		});
 	}
 
