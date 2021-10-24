@@ -9,7 +9,7 @@ import { BrandService } from '../services/brands/brand.service';
 import { TokenStorageService } from '../services/token-storage/token-storage.service';
 import { AuthService } from '../services/auth/auth.service';
 import { forkJoin, Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, timeout } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -56,9 +56,15 @@ export class EventsComponent implements OnInit {
 		});
 		this.isLoggedIn = !!this.tokenStorageService.getToken();
 		this.spinner.show();
-		let eventsList = this.getEventsList();
-		let brandsList = this.getBrandsList();
-		forkJoin([eventsList, brandsList]).subscribe(_ => {
+		let loadData: Observable<any>[] = [this.getEventsList()];
+		if (this.isLoggedIn) {
+			let brandsList = this.getBrandsList();
+			loadData.push(brandsList);
+		}
+		forkJoin(loadData).subscribe(() => {
+			this.spinner.hide();
+		}, (error) => {
+			console.log(error);
 			this.spinner.hide();
 		});
 	}
@@ -70,13 +76,13 @@ export class EventsComponent implements OnInit {
 	getEventsList(): Observable<void> {
 		return this.eventService.getEvents().pipe(map((events: Event[]) => {
 			this.events = events;
-		}));
+		}), timeout(5000));
 	}
 
 	getBrandsList(): Observable<void> {
 		return this.brandService.getBrands().pipe(map((brands: Brand[]) => {
 			this.brands = brands;
-		}));
+		}), timeout(5000));
 	}
 
 	linkToEvent(eventId: number): void {
