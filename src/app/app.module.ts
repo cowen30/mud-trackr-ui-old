@@ -20,6 +20,7 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { MainComponent } from './main/main.component';
 import { SharedModule } from './modules/shared/shared.module';
 import { ParticipantsComponent } from './events/event/participants/participants.component';
+import { CreateAccountComponent } from './create-account/create-account.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ParticipantsComponent } from './events/event/participants/participants.
     EventDetailsComponent,
     LoginComponent,
     MainComponent,
-    ParticipantsComponent
+    ParticipantsComponent,
+    CreateAccountComponent
   ],
   imports: [
     BrowserModule,

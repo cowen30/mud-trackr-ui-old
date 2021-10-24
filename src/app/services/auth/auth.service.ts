@@ -26,6 +26,14 @@ export class AuthService {
 		this.loggedIn.next(!!this.tokenStorageService.getToken());
 	}
 
+	createAccount(user: any): Observable<any> {
+		return this.http.post(`${this.baseUrl}/create-account`, { 'user': user }, httpOptions).pipe(map((result: any) => {
+			this.tokenStorageService.saveToken(result['token']);
+			this.tokenStorageService.saveUser(result['user']);
+			this.loggedIn.next(true);
+		}));
+	}
+
 	login(loginUser: any): Observable<any> {
 		return this.http.post(`${this.baseUrl}/login`, { 'user': loginUser }, httpOptions).pipe(map((result: any) => {
 			this.tokenStorageService.saveToken(result['token']);

@@ -1,0 +1,61 @@
+<div class="row justify-content-center align-items-center">        
+	<div class="col-12 col-md-6 col-lg-4">
+		<a routerLink="/login">
+			<i i-bs name="chevron-left" aria-hidden="true"></i>Back to login
+		</a>
+		<form class="pt-3" [formGroup]="createAccountForm" (ngSubmit)="createAccount()">
+			<div class="row pt-2 gy-3 gx-2">
+				<div class="col-6">
+					<div class="form-floating required">
+						<input class="form-control" type="text" placeholder="First Name" formControlName="firstName" />
+						<label for="firstName">First Name</label>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="form-floating required">
+						<input class="form-control" type="text" placeholder="Last Name" formControlName="lastName" />
+						<label for="lastName">Last Name</label>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="form-floating required">
+						<input class="form-control" type="text" placeholder="Email" formControlName="email" />
+						<label for="email">Email</label>
+					</div>
+				</div>
+				<div class="col-12">
+					<small class="text-muted">Password requirements:
+						<ul>
+							<li [ngClass]="{'text-success fw-bold': password?.value?.length > 0 && !password?.errors?.minlength}">At least 8 characters</li>
+							<li [ngClass]="{'text-success fw-bold': !password?.errors?.uppercaseCharacters}">At least 1 uppercase letter</li>
+							<li [ngClass]="{'text-success fw-bold': !password?.errors?.specialCharacters}">At least 1 special character (!, @, #, $, %, ^, &, *)</li>
+						</ul>
+					</small>
+				</div>
+				<div class="col-12 gy-0">
+					<div class="form-floating required">
+						<input class="form-control" type="password" placeholder="Password" formControlName="password" />
+						<label for="password">Password</label>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="form-floating required">
+						<input class="form-control" type="password" placeholder="Confirm Password" formControlName="passwordConfirmation" />
+						<label for="passwordConfirmation">Confirm Password</label>
+					</div>
+				</div>
+				<div *ngIf="createAccountForm.errors?.matchesConfirmation && (createAccountForm.touched || createAccountForm.dirty)" class="col-12">
+					<p class="text-danger">Password confirmation does not match</p>
+				</div>
+				<div class="col-12">
+					<button type="submit" class="btn btn-primary btn-lg w-100" [disabled]="!createAccountForm.valid">Create Account</button>
+				</div>
+				<div *ngIf="clientError">
+					<p class="text-danger">{{ clientError }}</p>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<app-loading-spinner></app-loading-spinner>
