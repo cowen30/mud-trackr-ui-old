@@ -1,5 +1,13 @@
 <div class="row pt-3">
 	<div class="col-12">
+		<div *ngIf="!user?.active" class="row">
+			<div class="col-12">
+				<div class="alert alert-warning" role="alert">
+					<i i-bs name="exclamation-triangle" aria-hidden="true"></i>
+					Your email has not been verified. Please click the link in your email to verify your account.
+				</div>
+			</div>
+		</div>
 		<app-profile-static-header [user]="user" [legionnaireCount]="tmLegionnaireCount"></app-profile-static-header>
 		<div class="row pt-3">
 			<div class="col-12">
