@@ -1,0 +1,16 @@
+<div class="row justify-content-center align-items-center">
+	<div class="col-12 col-md-6 col-lg-4 text-center">
+		<div *ngIf="verificationSuccess">
+			<i i-bs class="text-success" name="check-circle-fill" width="5rem" height="5rem" aria-hidden="true"></i>
+			<p class="pt-3">You've successfully verified your account! You can now start tracking your OCR events!</p>
+			<a routerLink="/profile" class="btn btn-primary btn-lg">Go to Profile</a>
+		</div>
+		<div *ngIf="verificationFailed">
+			<i i-bs class="text-danger" name="x-circle-fill" width="5rem" height="5rem" aria-hidden="true"></i>
+			<p class="pt-3">Email verification failed.</p>
+			<p>{{ errorMessage }}</p>
+		</div>
+	</div>
+</div>
+
+<app-loading-spinner></app-loading-spinner>

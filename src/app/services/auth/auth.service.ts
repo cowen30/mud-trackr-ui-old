@@ -34,6 +34,10 @@ export class AuthService {
 		}));
 	}
 
+	verifyAccount(userId: number, verificationCode: string): Observable<any> {
+		return this.http.post(`${this.baseUrl}/verify-account`, { 'userId': userId, 'verificationCode': verificationCode }, httpOptions);
+	}
+
 	login(loginUser: any): Observable<any> {
 		return this.http.post(`${this.baseUrl}/login`, { 'user': loginUser }, httpOptions).pipe(map((result: any) => {
 			this.tokenStorageService.saveToken(result['token']);

@@ -21,6 +21,7 @@ import { MainComponent } from './main/main.component';
 import { SharedModule } from './modules/shared/shared.module';
 import { ParticipantsComponent } from './events/event/participants/participants.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
+import { VerifyAccountComponent } from './verify-account/verify-account.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { CreateAccountComponent } from './create-account/create-account.componen
     LoginComponent,
     MainComponent,
     ParticipantsComponent,
-    CreateAccountComponent
+    CreateAccountComponent,
+    VerifyAccountComponent
   ],
   imports: [
     BrowserModule,

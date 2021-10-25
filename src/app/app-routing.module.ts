@@ -7,6 +7,7 @@ import { EventsComponent } from './events/events.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
+import { VerifyAccountComponent } from './verify-account/verify-account.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
       { path: 'about', component: AboutComponent },
       { path: 'login', component: LoginComponent },
       { path: 'create-account', component: CreateAccountComponent },
+      { path: 'verify-account', component: VerifyAccountComponent },
       { path: 'events', component: EventsComponent },
       { path: 'events/:id', component: EventComponent },
       { path: 'profile', loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule) },
