@@ -7,6 +7,7 @@ import { EventsComponent } from './events/events.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { VerifyAccountComponent } from './verify-account/verify-account.component';
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'create-account', component: CreateAccountComponent },
       { path: 'verify-account', component: VerifyAccountComponent },
+      { path: 'reset-password', component: ResetPasswordComponent },
       { path: 'events', component: EventsComponent },
       { path: 'events/:id', component: EventComponent },
       { path: 'profile', loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule) },

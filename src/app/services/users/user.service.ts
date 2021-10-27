@@ -14,7 +14,11 @@ export class UserService {
 	constructor(private http: HttpClient) { }
 
 	getUserById(id: number): Observable<User> {
-		return this.http.get<User>(`${this.baseUrl}/users/${id.toString()}`)
+		return this.http.get<User>(`${this.baseUrl}/users/${id.toString()}`);
+	}
+
+	getUserByIdAndResetCode(id: string, resetCode: string): Observable<User> {
+		return this.http.get<User>(`${this.baseUrl}/users/${id}/reset?resetCode=${resetCode}`);
 	}
 
 }

@@ -51,4 +51,12 @@ export class AuthService {
 		this.loggedIn.next(false);
 	}
 
+	sendPasswordResetEmail(email: string): Observable<any> {
+		return this.http.post(`${this.baseUrl}/reset-password`, { 'user': { 'email': email } }, httpOptions);
+	}
+
+	setNewPassword(user: any) {
+		return this.http.post(`${this.baseUrl}/set-new-password`, { 'user': user }, httpOptions);
+	}
+
 }

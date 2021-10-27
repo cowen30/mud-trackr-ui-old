@@ -22,6 +22,10 @@ import { SharedModule } from './modules/shared/shared.module';
 import { ParticipantsComponent } from './events/event/participants/participants.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { VerifyAccountComponent } from './verify-account/verify-account.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { GetEmailComponent } from './reset-password/get-email/get-email.component';
+import { ChangePasswordComponent } from './reset-password/change-password/change-password.component';
+import { ChangeConfirmationComponent } from './reset-password/change-confirmation/change-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,11 @@ import { VerifyAccountComponent } from './verify-account/verify-account.componen
     MainComponent,
     ParticipantsComponent,
     CreateAccountComponent,
-    VerifyAccountComponent
+    VerifyAccountComponent,
+    ResetPasswordComponent,
+    GetEmailComponent,
+    ChangePasswordComponent,
+    ChangeConfirmationComponent
   ],
   imports: [
     BrowserModule,
