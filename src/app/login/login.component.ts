@@ -16,6 +16,9 @@ export class LoginComponent implements OnInit {
 		password: ''
 	});
 
+	loginFailed: boolean = false;
+	errorMessage: string = '';
+
 	constructor(
 		private formBuilder: FormBuilder,
 		private authService: AuthService,
@@ -29,8 +32,12 @@ export class LoginComponent implements OnInit {
 	login(): void {
 		this.spinner.show();
 		this.authService.login(this.loginForm.value).subscribe(() => {
-			this.spinner.hide();
 			this.router.navigate(['/profile']);
+		}, (error) => {
+			this.loginFailed = true;
+			this.errorMessage = error.error.message;
+		}).add(() => {
+			this.spinner.hide();
 		});
 	}
 
