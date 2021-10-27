@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ValidationsHelper } from '../helpers/validations.helper';
 import { AuthService } from '../services/auth/auth.service';
 
 @Component({
@@ -14,15 +15,15 @@ export class CreateAccountComponent implements OnInit {
 	createAccountForm: FormGroup = this.formBuilder.group({
 		firstName: [null, Validators.required],
 		lastName: [null, Validators.required],
-		email: [null, Validators.required],
+		email: [null, [Validators.required, Validators.email]],
 		password: [null, [
 			Validators.required,
 			Validators.minLength(8),
-			this.validatePasswordUppercaseCharacters(),
-			this.validatePasswordSpecialCharacters()
+			ValidationsHelper.validatePasswordUppercaseCharacters(),
+			ValidationsHelper.validatePasswordSpecialCharacters()
 		]],
 		passwordConfirmation: [null, Validators.required]
-	}, { validators: this.validatePasswordMatchesConfirmation });
+	}, { validators: ValidationsHelper.validatePasswordMatchesConfirmation });
 
 	get password() { return this.createAccountForm.get('password'); }
 
@@ -49,27 +50,6 @@ export class CreateAccountComponent implements OnInit {
 			}
 			this.spinner.hide();
 		});
-	}
-
-	validatePasswordUppercaseCharacters(): ValidatorFn {
-		return (control: AbstractControl): ValidationErrors | null => {
-			const uppercaseCharacters = /[A-Z]/.test(control.value);
-			return uppercaseCharacters ? null : { uppercaseCharacters: { value: control.value } };
-		};
-	}
-
-	validatePasswordSpecialCharacters(): ValidatorFn {
-		return (control: AbstractControl): ValidationErrors | null => {
-			const specialCharacters = /[!@#$%^&*]/.test(control.value);
-			return specialCharacters ? null : { specialCharacters: { value: control.value } };
-		};
-	}
-
-	validatePasswordMatchesConfirmation(control: AbstractControl): ValidationErrors | null {
-		const password = control.get('password');
-		const passwordConfirmation = control.get('passwordConfirmation');
-		const matchesConfirmation = password?.value === passwordConfirmation?.value;
-		return matchesConfirmation ? null : { matchesConfirmation: true };
 	}
 
 }
