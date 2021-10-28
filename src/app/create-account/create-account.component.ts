@@ -45,7 +45,7 @@ export class CreateAccountComponent implements OnInit {
 			this.spinner.hide();
 			this.router.navigate(['/profile']);
 		}, (error) => {
-			if (error.status === 400) {
+			if (error.status < 500) {
 				this.clientError = error.error.message;
 			}
 			this.spinner.hide();

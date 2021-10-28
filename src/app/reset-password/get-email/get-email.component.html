@@ -15,6 +15,7 @@
 		</div>
 	</div>
 </form>
-<p *ngIf="formSubmitted" class="pt-3">Email sent to {{ email }}</p>
+<p *ngIf="resetSuccess" class="pt-3">If an account exists with this email, a link to reset your password will be sent to {{ email }}.</p>
+<p *ngIf="resetSuccess != null && !resetSuccess" class="pt-3" [innerHTML]="errorMessage"></p>
 
 <app-loading-spinner></app-loading-spinner>

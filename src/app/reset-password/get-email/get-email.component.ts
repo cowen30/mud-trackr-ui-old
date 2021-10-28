@@ -10,7 +10,8 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class GetEmailComponent implements OnInit {
 
-	formSubmitted: boolean = false;
+	resetSuccess!: boolean;
+	errorMessage: string = '';
 
 	resetPasswordForm: FormGroup = this.formBuilder.group({
 		email: ['', Validators.required]
@@ -32,7 +33,15 @@ export class GetEmailComponent implements OnInit {
 	resetPassword(): void {
 		this.spinner.show();
 		this.authService.sendPasswordResetEmail(this.resetPasswordForm.get('email')?.value).subscribe(() => {
-			this.formSubmitted = true;
+			this.resetSuccess = true;
+		}, (error) => {
+			this.resetSuccess = false;
+			if (error.status < 500) {
+				this.errorMessage = error.error.message;
+			} else {
+				this.errorMessage = 'An unexpected error has occurred. Please try again or contact us at <a href="mailto:websupport@mudtrackr.com">websupport@mudtrackr.com</a>.';
+			}
+		}).add(() => {
 			this.spinner.hide();
 		});
 	}

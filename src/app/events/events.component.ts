@@ -62,9 +62,9 @@ export class EventsComponent implements OnInit {
 			loadData.push(brandsList);
 		}
 		forkJoin(loadData).subscribe(() => {
-			this.spinner.hide();
 		}, (error) => {
 			console.log(error);
+		}).add(() => {
 			this.spinner.hide();
 		});
 	}
