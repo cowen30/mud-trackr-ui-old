@@ -1,6 +1,6 @@
 <div class="row pt-3">
 	<div class="col-12">
-		<div *ngIf="!user?.active" class="row">
+		<div *ngIf="user != null && !user?.active" class="row">
 			<div class="col-12">
 				<div class="alert alert-warning" role="alert">
 					<i i-bs name="exclamation-triangle" aria-hidden="true"></i>

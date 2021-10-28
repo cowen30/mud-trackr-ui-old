@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from 'src/app/models/user.model';
 import { ParticipantService } from 'src/app/services/participants/participant.service';
@@ -22,6 +23,8 @@ export class ProfileComponent implements OnInit {
 	@ViewChild('infoSummaryBarComponent')
 	infoSummaryBarComponent!: InfoSummaryBarComponent;
 
+	private queryParamSub!: Subscription;
+
 	userResult!: Observable<void>;
 	statsResult!: Observable<void>;
 
@@ -34,11 +37,18 @@ export class ProfileComponent implements OnInit {
 		private tokenStorageService: TokenStorageService,
 		private userService: UserService,
 		private spinner: NgxSpinnerService,
-		private participantService: ParticipantService
+		private participantService: ParticipantService,
+		private route: ActivatedRoute
 	) { }
 
 	ngOnInit(): void {
 		this.spinner.show();
+		this.queryParamSub = this.route.queryParams.subscribe(params => {
+			const activeTab = params['activeTab'];
+			if (activeTab != null) {
+				this.activeTab = activeTab;
+			}
+		});
 		const userId = this.tokenStorageService.getUser().id;
 		this.userResult = this.userService.getUserById(userId).pipe(map((user: User) => {
 			this.user = user;
@@ -54,6 +64,10 @@ export class ProfileComponent implements OnInit {
 		forkJoin([this.userResult, this.statsResult, eventsLoadFinished]).subscribe(_ => {
 			this.spinner.hide();
 		});
+	}
+
+	ngOnDestroy() {
+		this.queryParamSub.unsubscribe();
 	}
 
 }
