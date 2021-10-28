@@ -1,20 +1,20 @@
-<div class="row justify-content-center align-items-center">
-	<div class="col-12 col-md-6 col-lg-4">
-		<form [formGroup]="resetPasswordForm" (ngSubmit)="resetPassword()">
-			<div class="row gy-3">
-				<div class="col-12">
-					<p>Please enter your email address to reset your password:</p>
-				</div>
-				<div class="col-12">
-					<input type="email" formControlName="email" class="form-control" placeholder="Email"/>
-				</div>
-				<div class="col-12 d-flex justify-content-center">
-					<button type="submit" class="btn btn-primary btn-lg">Reset Password</button>
-				</div>
-			</div>
-		</form>
-		<p *ngIf="formSubmitted" class="pt-3">Email sent to {{ email }}</p>
+<a routerLink="/login">
+	<i i-bs name="chevron-left" aria-hidden="true"></i>Back to login
+</a>
+
+<form class="pt-3" [formGroup]="resetPasswordForm" (ngSubmit)="resetPassword()">
+	<div class="row gy-3">
+		<div class="col-12">
+			<p>Please enter your email address to reset your password:</p>
+		</div>
+		<div class="col-12">
+			<input type="email" formControlName="email" class="form-control" placeholder="Email"/>
+		</div>
+		<div class="col-12 d-flex justify-content-center">
+			<button type="submit" class="btn btn-primary btn-lg">Reset Password</button>
+		</div>
 	</div>
-</div>
+</form>
+<p *ngIf="formSubmitted" class="pt-3">Email sent to {{ email }}</p>
 
 <app-loading-spinner></app-loading-spinner>
