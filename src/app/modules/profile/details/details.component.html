@@ -7,6 +7,9 @@
 
 	<dt class="col-4 text-end">Email</dt>
 	<dd class="col-8">{{ user?.email }}</dd>
+
+	<dt class="col-4 text-end">Account Created</dt>
+	<dd class="col-8">{{ user?.createdAt?.toFormat('fff') }}</dd>
 </dl>
 
 <div class="row justify-content-center align-items-center">

@@ -17,7 +17,7 @@ import { ParticipantService } from 'src/app/services/participants/participant.se
 })
 export class EventsComponent implements OnInit {
 
-	private _user = new BehaviorSubject<User>({ id: 0 });
+	private _user = new BehaviorSubject<User>(new User());
 	private _loadFinished = new BehaviorSubject<boolean>(false);
 	loadFinished = this._loadFinished.asObservable();
 

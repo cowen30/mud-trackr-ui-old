@@ -19,4 +19,7 @@
 
 	<dt class="col-4 text-end">Brand</dt>
 	<dd class="col-8">{{ event?.brand?.name }}</dd>
+	
+	<dt class="col-4 text-end">Last Updated</dt>
+	<dd class="col-8">{{ event?.updatedBy?.firstName }} {{ event?.updatedBy?.lastName }} ({{ event?.updatedAt?.toFormat('fff') }})</dd>
 </dl>

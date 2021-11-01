@@ -9,7 +9,7 @@ import { User } from 'src/app/models/user.model';
 })
 export class StaticHeaderComponent implements OnInit {
 
-	private _user = new BehaviorSubject<User>({ id: 0 });
+	private _user = new BehaviorSubject<User>(new User());
 	private _loadFinished = new BehaviorSubject<boolean>(false);
 	loadFinished = this._loadFinished.asObservable();
 
