@@ -21,4 +21,8 @@ export class UserService {
 		return this.http.get<User>(`${this.baseUrl}/users/${id}/reset?resetCode=${resetCode}`);
 	}
 
+	deleteUserAccount(id: number): Observable<any> {
+		return this.http.delete<any>(`${this.baseUrl}/users/${id.toString()}`);
+	}
+
 }

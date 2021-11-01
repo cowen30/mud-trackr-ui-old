@@ -8,3 +8,28 @@
 	<dt class="col-4 text-end">Email</dt>
 	<dd class="col-8">{{ user?.email }}</dd>
 </dl>
+
+<div class="row justify-content-center align-items-center">
+	<div class="col-12 col-md-6 col-lg-4">
+		<button type="button" class="btn btn-danger" (click)="openModal(deleteAccountModalContent)">Delete account</button>
+	</div>
+</div>
+
+<!-- Delete Account Modal -->
+<ng-template #deleteAccountModalContent>
+	<div class="modal-header">
+		<h5 class="modal-title" id="deleteAccountModalLabel">Delete Account</h5>
+		<button class="btn-close" type="button" (click)="modalRef?.hide()" aria-label="Close"></button>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-12">
+				<p>Are you sure you want to delete your account? This will delete all of your data as well.</p>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-secondary" (click)="modalRef?.hide()">Close</button>
+		<button type="button" class="btn btn-danger" (click)="deleteAccount()">Delete</button>
+	</div>
+</ng-template>
