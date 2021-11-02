@@ -11,6 +11,7 @@ import { AuthService } from '../services/auth/auth.service';
 import { forkJoin, Observable, Subscription } from 'rxjs';
 import { map, timeout } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { environment } from 'src/environments/environment';
 
 @Component({
 	selector: 'app-events',
@@ -38,6 +39,8 @@ export class EventsComponent implements OnInit {
 	});
 
 	modalRef?: BsModalRef;
+
+	baseUrl = environment.serviceUrl;
 
 	constructor(
 		private eventService: EventService,

@@ -40,8 +40,8 @@
 					<div class="row align-items-center">
 						<div class="col-4" *ngFor="let brand of brands">
 							<div class="brand-logo p-1 rounded h-100">
-								<div class="text-center" *ngIf="brand.logoUrl == null">{{ brand.name }}</div>
-								<img class="img-fluid" *ngIf="brand.logoUrl != null" src="{{ brand.logoUrl }}" />
+								<div class="text-center" *ngIf="brand.logoPath == null">{{ brand.name }}</div>
+								<img class="img-fluid" *ngIf="brand.logoPath != null" src="{{ baseUrl }}/{{ brand.logoPath }}" />
 								<input class="d-none" type="radio" value="1" formControlName="brandId">
 							</div>
 						</div>
