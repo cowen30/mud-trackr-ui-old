@@ -76,13 +76,13 @@ export class EventsComponent implements OnInit {
 	getEventsList(): Observable<void> {
 		return this.eventService.getEvents().pipe(map((events: Event[]) => {
 			this.events = events;
-		}), timeout(5000));
+		}), timeout(7500));
 	}
 
 	getBrandsList(): Observable<void> {
 		return this.brandService.getBrands().pipe(map((brands: Brand[]) => {
 			this.brands = brands;
-		}), timeout(5000));
+		}), timeout(7500));
 	}
 
 	linkToEvent(eventId: number): void {
