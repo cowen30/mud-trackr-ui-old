@@ -2,6 +2,11 @@
 	<div class="col-12">
 		<div class="row">
 			<div class="col-12">
+				<h2>{{ event?.name }}</h2>
+			</div>
+		</div>
+		<div class="row pt-3">
+			<div class="col-12">
 				<ul class="nav nav-tabs" id="event-tabs" role="tablist">
 					<li class="nav-item" role="presentation">
 						<button class="nav-link {{ activeTab == 'details' ? 'active' : null }}" id="details-tab" data-bs-toggle="tab" data-bs-target="#details-content" type="button" role="tab" aria-controls="details-tab" [attr.aria-selected]="activeTab == 'details' ? 'true' : 'false'">Details</button>
