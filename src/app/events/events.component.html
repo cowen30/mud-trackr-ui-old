@@ -39,9 +39,9 @@
 				<div class="col-12">
 					<div class="row align-items-center">
 						<div class="col-4" *ngFor="let brand of brands">
-							<div class="brand-logo p-1 rounded h-100">
+							<div class="brand-logo p-1 rounded h-100" [ngClass]="{'border border-secondary': selectedBrand == brand.id}" (click)="selectedBrand = brand.id">
 								<div class="text-center" *ngIf="brand.logoPath == null">{{ brand.name }}</div>
-								<img class="img-fluid" *ngIf="brand.logoPath != null" src="{{ baseUrl }}/{{ brand.logoPath }}" />
+								<img class="img-fluid" *ngIf="brand.logoPath != null" src="{{ baseUrl }}/{{ brand.logoPath }}" alt="{{ brand.name }} logo" />
 								<input class="d-none" type="radio" value="1" formControlName="brandId">
 							</div>
 						</div>

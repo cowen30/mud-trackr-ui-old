@@ -38,6 +38,8 @@ export class EventsComponent implements OnInit {
 		date: ''
 	});
 
+	selectedBrand: number = 0;
+
 	modalRef?: BsModalRef;
 
 	baseUrl = environment.serviceUrl;
