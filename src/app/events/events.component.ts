@@ -30,7 +30,7 @@ export class EventsComponent implements OnInit {
 	brands!: Brand[];
 	createEventForm = this.formBuilder.group({
 		name: '',
-		brandId: 1,
+		brandId: 0,
 		address: '',
 		city: '',
 		state: '',
@@ -38,7 +38,13 @@ export class EventsComponent implements OnInit {
 		date: ''
 	});
 
-	selectedBrand: number = 0;
+	get selectedBrand() {
+		return this.createEventForm.get('brandId')?.value;
+	}
+
+	set selectedBrand(brandId: number) {
+		this.createEventForm.patchValue({brandId: brandId});
+	}
 
 	modalRef?: BsModalRef;
 
