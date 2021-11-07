@@ -63,27 +63,6 @@
               ],
               "outputHashing": "all"
             },
-            "test": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "1mb",
-                  "maximumError": "3mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.test.ts"
-                }
-              ],
-              "outputHashing": "all"
-            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -100,9 +79,6 @@
           "configurations": {
             "production": {
               "browserTarget": "mud-trackr-ui:build:production"
-            },
-            "test": {
-              "browserTarget": "mud-trackr-ui:build:test"
             },
             "development": {
               "browserTarget": "mud-trackr-ui:build:development"

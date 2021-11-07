@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { allIcons, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
@@ -26,6 +26,15 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { GetEmailComponent } from './reset-password/get-email/get-email.component';
 import { ChangePasswordComponent } from './reset-password/change-password/change-password.component';
 import { ChangeConfirmationComponent } from './reset-password/change-confirmation/change-confirmation.component';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+function initializeAppFactory(httpClient: HttpClient): () => Observable<any> {
+  return () => httpClient.get<any>(window.location.origin + '/service-url').pipe(map((response: any) => {
+    console.log(response.url);
+    sessionStorage.setItem('serviceUrl', response.url);
+  }));
+}
 
 @NgModule({
   declarations: [
@@ -58,7 +67,14 @@ import { ChangeConfirmationComponent } from './reset-password/change-confirmatio
     ModalModule.forRoot(),
     SharedModule
   ],
-  providers: [authInterceptorProviders],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeAppFactory,
+      deps: [HttpClient],
+      multi: true
+    },
+    authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

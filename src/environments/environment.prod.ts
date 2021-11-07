@@ -1,4 +1,4 @@
 export const environment = {
 	production: true,
-	serviceUrl: 'https://api.mudtrackr.com'
+	serviceUrl: sessionStorage.getItem('serviceUrl')
 };
