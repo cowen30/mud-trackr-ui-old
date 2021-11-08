@@ -4,7 +4,7 @@ import { allIcons, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
@@ -27,13 +27,10 @@ import { GetEmailComponent } from './reset-password/get-email/get-email.componen
 import { ChangePasswordComponent } from './reset-password/change-password/change-password.component';
 import { ChangeConfirmationComponent } from './reset-password/change-confirmation/change-confirmation.component';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { InitService } from './services/init/init.service';
 
-function initializeAppFactory(httpClient: HttpClient): () => Observable<any> {
-  return () => httpClient.get<any>(window.location.origin + '/service-url').pipe(map((response: any) => {
-    console.log(response.url);
-    sessionStorage.setItem('serviceUrl', response.url);
-  }));
+function initializeAppFactory(initService: InitService): () => Observable<any> {
+  return () => initService.initialize();
 }
 
 @NgModule({
@@ -71,7 +68,7 @@ function initializeAppFactory(httpClient: HttpClient): () => Observable<any> {
     {
       provide: APP_INITIALIZER,
       useFactory: initializeAppFactory,
-      deps: [HttpClient],
+      deps: [InitService],
       multi: true
     },
     authInterceptorProviders],
