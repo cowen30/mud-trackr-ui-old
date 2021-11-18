@@ -44,7 +44,7 @@ export class HeadbandComponent implements OnInit {
 			} else if (count >= 10 && count <= 24) {
 				this.headbandClass = 'headband-10x';
 				this.headbandText = '10x';
-                                this.fontColor = 'white';
+				this.fontColor = 'white';
 			} else if (count >= 25 && count <= 49) {
 				this.headbandClass = 'headband-25x';
 				this.headbandText = '25x';
