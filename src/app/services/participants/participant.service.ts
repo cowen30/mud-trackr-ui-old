@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Participant } from 'src/app/models/participant.model';
@@ -14,11 +14,13 @@ export class ParticipantService {
 	constructor(private http: HttpClient) { }
 
 	getParticipantsByUserId(userId: number): Observable<Participant[]> {
-		return this.http.get<Participant[]>(`${this.baseUrl}/participants/users/${userId.toString()}`);
+		let params = new HttpParams().set('userId', userId);
+		return this.http.get<Participant[]>(`${this.baseUrl}/participants`, { params: params });
 	}
 
 	getParticipantsByEventId(eventId: number): Observable<Participant[]> {
-		return this.http.get<Participant[]>(`${this.baseUrl}/participants/events/${eventId.toString()}`);
+		let params = new HttpParams().set('eventId', eventId);
+		return this.http.get<Participant[]>(`${this.baseUrl}/participants`, { params: params });
 	}
 
 	addParticipant(participant: Participant): Observable<Participant> {
